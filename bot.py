@@ -4,6 +4,7 @@ import logging
 from aiogram import Bot, Dispatcher
 from config.config import Config, load_config
 from handlers import other_handlers, user_handlers
+from handlers.user_handlers import set_main_menu
 
 # Создаем логгер
 logger = logging.getLogger(__name__)
@@ -26,9 +27,10 @@ async def main():
                    parse_mode='HTML')
     dp: Dispatcher = Dispatcher()
 
-    # Регистрируем роутеры в диспетчере
+    # Регистрируем роутеры  и меню в диспетчере
     dp.include_router(user_handlers.router)
     dp.include_router(other_handlers.router)
+    dp.startup.register(set_main_menu)
 
     # Пропускаем апдейты и запускаем поллинг
     await bot.delete_webhook(drop_pending_updates=True)

@@ -1,12 +1,23 @@
-from aiogram import Router
+from aiogram import Router, Bot
 from aiogram.filters import Command, CommandStart, Text
-from aiogram.types import Message
+from aiogram.types import Message, BotCommand
 from keyboard.keyboards import game_kb, yes_no_kb
 from lexicon.lexicon_ru import LEXICON_RU
 from services.services import get_bot_choice, get_winner
 
 # Создаем роутер
 router: Router = Router()
+
+
+# Это кнопка меню
+async def set_main_menu(bot: Bot):
+    main_menu_commands = [
+        BotCommand(command='/start',
+                   description='Начать играть'),
+        BotCommand(command='/help',
+                   description='Справка по игре')]
+
+    await bot.set_my_commands(main_menu_commands)
 
 
 # Этот хэндлер срабатывает на команду /start
