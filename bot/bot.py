@@ -35,6 +35,3 @@ async def main():
     # Пропускаем апдейты и запускаем поллинг
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)
-
-if __name__ == '__main__':
-    asyncio.run(main())
